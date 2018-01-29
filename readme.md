@@ -10,7 +10,7 @@ composer require isotopsweden/wp-imgix-helper
 
 ## Usage
 
-```
+```php
 // To disable imgix:
 define( 'IMGIX_DISABLED', true );
 
