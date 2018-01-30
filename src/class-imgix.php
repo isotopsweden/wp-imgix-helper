@@ -132,10 +132,8 @@ class Imgix {
 			krsort( $srcset );
 
 			$attr['srcset'] = implode( ', ', $srcset );
-
 			$attr['srcset'] = implode( ', ', $srcset );
-
-			$attr['sizes'] = $size_params['w'] . 'px';
+			$attr['sizes']  = $size_params['w'] . 'px';
 		}
 
 		return $attr;
