@@ -19,6 +19,9 @@ define( 'IMGIX_HELPER_OVERRIDE', true );
 
 // To change cdn link when override is defined:
 define( 'IMGIX_HELPER_CDN_LINK', 'https://...' );
+
+// Turn off disable thumbnail. Default is true.
+define( 'IMGIX_HELPER_DISABLE_THUMBNAIL', false );
 ```
 
 ## License

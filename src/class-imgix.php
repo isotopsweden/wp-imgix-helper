@@ -47,7 +47,9 @@ class Imgix {
 		}
 
 		// Disable thumbnail creation.
-		add_filter( 'intermediate_image_sizes_advanced', '__return_empty_array' );
+		if ( defined( 'IMGIX_HELPER_DISABLE_THUMBNAIL' ) && IMGIX_HELPER_DISABLE_THUMBNAIL ) {
+			add_filter( 'intermediate_image_sizes_advanced', '__return_empty_array' );
+		}
 
 		// Add imgix thumbnails.
 		add_filter( 'wp_generate_attachment_metadata', [ $this, 'add_imgix_sizes' ], 10, 2 );

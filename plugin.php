@@ -15,6 +15,10 @@ if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
 	require_once __DIR__ . '/vendor/autoload.php';
 }
 
+if ( ! defined( 'IMGIX_HELPER_DISABLE_THUMBNAIL' ) ) {
+	define( 'IMGIX_HELPER_DISABLE_THUMBNAIL', true );
+}
+
 /**
  * Boot the plugin.
  */
