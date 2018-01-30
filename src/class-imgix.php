@@ -41,6 +41,14 @@ class Imgix {
 		if ( defined( 'IMGIX_HELPER_OVERRIDE' ) && IMGIX_HELPER_OVERRIDE ) {
 			$options = get_option( 'imgix_settings', [] );
 
+			if ( ! is_array( $options ) ) {
+				$options = [
+					'cdn_link'     => '',
+					'auto_format'  => 1,
+					'auto_enhance' => 1
+				];
+			}
+
 			if ( ! empty( $options['cdn_link'] ) && defined( 'IMGIX_HELPER_CDN_LINK' ) ) {
 				$options['cdn_link'] = IMGIX_HELPER_CDN_LINK;
 			}
