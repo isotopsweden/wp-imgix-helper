@@ -75,21 +75,6 @@ class Imgix {
 	}
 
 	/**
-	 * Override imgix settings.
-	 *
-	 * @param  array $settings
-	 *
-	 * @return array
-	 */
-	public function override_imgix_settings( $settings ) {
-		if ( ! empty( $settings['cdn_link'] ) && defined( 'IMGIX_HELPER_CDN_LINK' ) ) {
-			$settings['cdn_link'] = IMGIX_HELPER_CDN_LINK;
-		}
-
-		return $settings;
-	}
-
-	/**
 	 * Generate image size meta without generating files.
 	 *
 	 * @param  array $metadata
