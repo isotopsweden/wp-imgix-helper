@@ -31,19 +31,21 @@ class Imgix {
 		// Disable imgix if `IMGIX_DISABLED` is defined.
 		if ( defined( 'IMGIX_DISABLED' ) ) {
 			add_filter( 'pre_option_imgix_settings', '__return_empty_array' );
-		} else if ( defined( 'IMGIX_HELPER_OVERRIDE' ) && IMGIX_HELPER_OVERRIDE ) {
-			// Override imgix if `IMGIX_HELPER_OVERRIDE` is defined.
-			add_filter( 'option_imgix_settings', [ $this, 'override_imgix_settings' ] );
 		}
 
 		if ( ! class_exists( '\Images_Via_Imgix' ) ) {
 			return;
 		}
 
-		$opions = get_option( 'imgix_settings', [] );
+		// Override imgix options if `IMGIX_HELPER_OVERRIDE` is defined.
+		if ( defined( 'IMGIX_HELPER_OVERRIDE' ) && IMGIX_HELPER_OVERRIDE ) {
+			$options = get_option( 'imgix_settings', [] );
 
-		if ( empty( $opions['cdn_link'] ) ) {
-			return;
+			if ( ! empty( $options['cdn_link'] ) && defined( 'IMGIX_HELPER_CDN_LINK' ) ) {
+				$options['cdn_link'] = IMGIX_HELPER_CDN_LINK;
+			}
+
+			\Images_Via_Imgix::instance()->set_options( $options );
 		}
 
 		// Disable thumbnail creation.
