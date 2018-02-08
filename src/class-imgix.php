@@ -53,6 +53,13 @@ class Imgix {
 				$options['cdn_link'] = IMGIX_HELPER_CDN_LINK;
 			}
 
+			/**
+			 * Modify options before.
+			 *
+			 * @param array $options
+			 */
+			$options = apply_filters( 'imgix_helper_options', $options );
+
 			\Images_Via_Imgix::instance()->set_options( $options );
 		}
 
