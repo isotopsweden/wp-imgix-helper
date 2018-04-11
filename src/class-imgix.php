@@ -67,6 +67,9 @@ class Imgix {
 		// Add retina.
 		add_filter( 'wp_get_attachment_image_attributes', [ $this, 'add_retina' ], 10, 3 );
 
+		// Add crop option to thumbnails.
+		add_filter( 'image_downsize', [ $this, 'filter_image_downsize' ], 10, 3 );
+
 		// Allow srcset attribute.
 		add_filter( 'wp_kses_allowed_html', [ $this, 'allow_srcset' ] );
 
@@ -286,4 +289,32 @@ class Imgix {
 
 		return $sizes;
 	}
+
+	/**
+	 * Add crop to image src if present on current image size.
+	 *
+	 * @param false|array  $return
+	 * @param int          $attachment_id
+	 * @param string|array $size
+	 *
+	 * @return false|array
+	 */
+	public function filter_image_downsize( $return, $attachment_id, $size ) {
+		if ( ! is_array( $size ) ) {
+			$available_sizes = $this->get_all_defined_sizes();
+			$size        = $available_sizes[ $size ];
+			$params['w'] = $width = $size['width'];
+			$params['h'] = $height = $size['height'];
+
+			if ( isset( $size['crop'] ) && $size['crop'] === 1 ) {
+				$params['fit'] = isset( $size['crop'] ) ? 'crop' : 0;
+			}
+
+			$img_url = add_query_arg( $params, wp_get_attachment_url( $attachment_id ) );
+			$return = [ $img_url, $width, $height, true ];
+
+		}
+		return $return;
+	}
+
 }
