@@ -28,12 +28,13 @@ class Imgix {
 	 * Imgix constructor.
 	 */
 	public function __construct() {
-		// Disable imgix if `IMGIX_DISABLED` is defined.
-		if ( defined( 'IMGIX_DISABLED' ) ) {
-			add_filter( 'pre_option_imgix_settings', '__return_empty_array' );
+		if ( ! class_exists( '\Images_Via_Imgix' ) ) {
+			return;
 		}
 
-		if ( ! class_exists( '\Images_Via_Imgix' ) ) {
+		// Disable imgix if `IMGIX_DISABLED` is defined.
+		if ( defined( 'IMGIX_DISABLED' ) ) {
+			\Images_Via_Imgix::instance()->set_options( [] );
 			return;
 		}
 
