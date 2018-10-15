@@ -34,6 +34,7 @@ class Imgix {
 
 		// Disable imgix if `IMGIX_DISABLED` is defined.
 		if ( defined( 'IMGIX_DISABLED' ) ) {
+			add_filter( 'pre_option_imgix_settings', '__return_empty_array' );
 			\Images_Via_Imgix::instance()->set_options( [] );
 			return;
 		}
