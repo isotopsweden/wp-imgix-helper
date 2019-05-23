@@ -304,6 +304,11 @@ class Imgix {
 	public function filter_image_downsize( $return, $attachment_id, $size ) {
 		if ( ! is_array( $size ) ) {
 			$available_sizes = $this->get_all_defined_sizes();
+
+			if ( ! isset( $available_sizes[$size] ) ) {
+				return $return;
+			}
+
 			$size        = $available_sizes[ $size ];
 			$params['w'] = $width = $size['width'];
 			$params['h'] = $height = $size['height'];
@@ -318,5 +323,4 @@ class Imgix {
 		}
 		return $return;
 	}
-
 }
